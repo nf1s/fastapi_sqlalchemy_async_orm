@@ -6,8 +6,8 @@ def init_app():
     db.init()
 
     app = FastAPI(
-        title="Health App",
-        description="Handling Our Patients",
+        title="Users App",
+        description="Handling Our User",
         version="1",
     )
 
