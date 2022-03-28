@@ -8,6 +8,7 @@ fastapi = "*"
 sqlalchemy = "*"
 asyncpg = "*"
 uvicorn = "*"
+alembic = "*"
 
 [dev-packages]
 pdbpp = "*"
