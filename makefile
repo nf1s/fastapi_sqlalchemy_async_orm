@@ -1,17 +1,20 @@
+default:
+	just --list
+
 setup:
-	pipenv install --dev --pre
+	@pipenv install --dev --pre
 
 run:
-	pipenv run uvicorn main:app --reload
+	@pipenv run uvicorn main:app --reload
 
 test:
-	pipenv run pytest -s
+	@pipenv run pytest -s
 
 shell:
-	pipenv shell
+	@pipenv shell
 
-db-run:	
-	docker run \
+db-run:
+	@docker run \
 		--rm   \
 		--name  postgres \
 		-p 5432:5432 \
@@ -21,7 +24,7 @@ db-run:
 		-d postgres
 
 db-stop:
-	docker stop postgres
+	@docker stop postgres
 
 db-shell:
-	docker exec -it postgres psql -U postgres
+	@docker exec -it postgres psql -U postgres

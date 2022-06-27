@@ -1,5 +1,8 @@
+from typing import List
+
 from fastapi import APIRouter
 from pydantic import BaseModel
+
 from models import User
 
 
@@ -23,19 +26,25 @@ api = APIRouter(
 @api.post("/", response_model=UserSerializer)
 async def create_user(user: UserSchema):
     user = await User.create(**user.dict())
-    return UserSerializer.from_orm(user)
+    return user
 
 
 @api.get("/{id}", response_model=UserSerializer)
 async def get_user(id: str):
     user = await User.get(id)
-    return UserSerializer.from_orm(user)
+    return user
+
+
+@api.get("/", response_model=List[UserSerializer])
+async def get_all_users():
+    users = await User.get_all()
+    return users
 
 
 @api.put("/{id}", response_model=UserSerializer)
 async def update(id: str, user: UserSchema):
     user = await User.update(id, **user.dict())
-    return UserSerializer.from_orm(user)
+    return user
 
 
 @api.delete("/{id}", response_model=bool)

@@ -1,12 +1,12 @@
-from sqlalchemy import Column, String, DateTime
-from sqlalchemy import update as sqlalchemy_update
-from sqlalchemy import delete as sqlalchemy_delete
-from sqlalchemy.future import select
 from datetime import datetime
+from uuid import uuid4
+
+from sqlalchemy import Column, DateTime, String
+from sqlalchemy import delete as sqlalchemy_delete
+from sqlalchemy import update as sqlalchemy_update
+from sqlalchemy.future import select
 
 from database import Base, db
-
-from uuid import uuid4
 
 
 class User(Base):
@@ -58,6 +58,13 @@ class User(Base):
         users = await db.execute(query)
         (user,) = users.first()
         return user
+
+    @classmethod
+    async def get_all(cls):
+        query = select(cls)
+        users = await db.execute(query)
+        users = users.scalars().all()
+        return users
 
     @classmethod
     async def delete(cls, id):
